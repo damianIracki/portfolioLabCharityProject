@@ -7,7 +7,9 @@ import java.util.List;
 
 public interface InstitutionRepository extends JpaRepository<Institution, Long> {
 
-    @Override
-    List<Institution> findAll();
+
+    List<Institution> findAllByOrderByNameAsc();
+
+    Institution findFirstByName(String name);
 
 }

@@ -19,7 +19,7 @@
 <section class="stats">
     <div class="container container--85">
         <div class="stats--item">
-            <em>${quantity}</em>
+            <em>${quantityOfBags}</em>
 
             <h3>Oddanych worków</h3>
             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius est beatae, quod accusamus illum
@@ -27,7 +27,7 @@
         </div>
 
         <div class="stats--item">
-            <em>5</em>
+            <em>${quantityOfSupportedInstitutions}</em>
             <h3>Wspartych organizacji</h3>
             <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Laboriosam magnam, sint nihil cupiditate quas
                 quam.</p>
@@ -85,27 +85,21 @@
             Możesz sprawdzić czym się zajmują.</p>
 
         <ul class="help--slides-items">
-            <c:forEach items="${institutions}" var="institution" varStatus="index">
+        <c:forEach items="${institutions}" var="institution" step="2" varStatus="status">
             <li>
+
+                <div class="col">
+                    <div class="title">${institution.name}</div>
+                    <div class="subtitle">${institution.description}</div>
+                </div>
+
                 <div class="col">
                     <div class="title">${institution.name}</div>
                     <div class="subtitle">${institution.description}</div>
                 </div>
 
             </li>
-            </c:forEach>
-            <li>
-                <div class="col">
-                    <div class="title">Fundacja "Dbam o Zdrowie"</div>
-                    <div class="subtitle">Cel i misja: Pomoc dzieciom z ubogich rodzin.</div>
-                </div>
-
-                <div class="col">
-                    <div class="title">Fundacja "A kogo"</div>
-                    <div class="subtitle">Cel i misja: Pomoc wybudzaniu dzieci ze śpiączki.</div>
-                </div>
-            </li>
-
+        </c:forEach>
         </ul>
 
     </div>
