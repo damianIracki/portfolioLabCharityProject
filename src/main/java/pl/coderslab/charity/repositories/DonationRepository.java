@@ -13,8 +13,8 @@ public interface DonationRepository extends JpaRepository<Donation, Long>{
     Integer findSumQuantity ();
 
 
-    @Query("SELECT d FROM Donation d GROUP BY d.institution")
-    List<Donation> countOfInstitutions();
+    @Query("SELECT COUNT (DISTINCT d.institution) FROM Donation d")
+    Integer countOfInstitutions();
 
     @Override
     <S extends Donation> S save(S s);

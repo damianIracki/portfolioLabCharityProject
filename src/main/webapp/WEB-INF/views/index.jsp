@@ -85,19 +85,26 @@
             Możesz sprawdzić czym się zajmują.</p>
 
         <ul class="help--slides-items">
-        <c:forEach items="${institutions}" var="institution" step="2" varStatus="status">
+        <c:forEach items="${institutions}" begin="0" end="${institutions.size()}" step="2" varStatus="status">
             <li>
-
                 <div class="col">
-                    <div class="title">${institution.name}</div>
-                    <div class="subtitle">${institution.description}</div>
+                    <div class="title">Fundacja ${institutions.get(status.index).name}</div>
+                    <div class="subtitle">Cel i misja: ${institutions.get(status.index).description}</div>
                 </div>
+                <c:choose>
 
-                <div class="col">
-                    <div class="title">${institution.name}</div>
-                    <div class="subtitle">${institution.description}</div>
-                </div>
+                    <c:when test="${(status.index+1)<institutions.size()}">
+                        <div class="col">
+                            <div class="title">Fundacja ${institutions.get(status.index+1).name}</div>
+                            <div class="subtitle">Cel i misja: ${institution.get(status.index+1).description}</div>
+                        </div>
+                    </c:when>
 
+                    <c:otherwise>
+                        <div style="width: 100%"></div>
+                    </c:otherwise>
+
+                </c:choose>
             </li>
         </c:forEach>
         </ul>

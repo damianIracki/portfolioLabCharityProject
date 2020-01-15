@@ -1,4 +1,4 @@
-package pl.coderslab.charity.controlers;
+package pl.coderslab.charity.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -28,8 +28,7 @@ public class HomeController {
         Integer quantityOfBags = donationRepository.findSumQuantity();
         model.addAttribute("quantityOfBags", quantityOfBags);
 
-        List<Donation> donations = donationRepository.countOfInstitutions();
-        Integer quantityOfSupportedInstitutions = donations.size();
+        Integer quantityOfSupportedInstitutions = donationRepository.countOfInstitutions();
         model.addAttribute("quantityOfSupportedInstitutions", quantityOfSupportedInstitutions);
 
         List<Institution> institutions = institutionRepository.findAll();
