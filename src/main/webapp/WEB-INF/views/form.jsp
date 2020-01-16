@@ -9,7 +9,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Document</title>
+    <title>Donation</title>
     <link rel="stylesheet" href="<c:url value="resources/css/style.css"/>"/>
 
 
@@ -47,7 +47,11 @@
                 <c:forEach items="${categories}" var="category">
                     <div class="form-group form-group--checkbox">
                         <label>
-                            <form:checkbox path="categories" value="${category}"/>
+                            <input
+                                    type="checkbox"
+                                    name="categories"
+                                    value="${category.id}"
+                            />
                             <span class="checkbox"></span>
                             <span class="description">${category.name}</span>
                         </label>
@@ -58,6 +62,8 @@
                     <button type="button" class="btn next-step">Dalej</button>
                 </div>
             </div>
+
+
 
             <!-- STEP 2 -->
             <div data-step="2">
@@ -219,8 +225,20 @@
         var pickUpTime = document.forms['form1']['pickUpTime'].value;
         var pickUpComment = document.forms['form1']['pickUpComment'].value;
 
+        var categories = document.querySelectorAll('input[name="categories"]');
+        var checkedCategories = [];
+
+        for(var i = 0; i < categories.length; i++){
+            if(categories[i].checked){
+                checkedCategories += categories[i].nextElementSibling.nextElementSibling.innerText + "; ";
+
+            }
+        }
+
+
+
         var placeForQuantity = document.querySelector('#placeForQuantity');
-        placeForQuantity.innerText = quantity + " worki z kategorii " ;
+        placeForQuantity.innerText = quantity + " worki w kategoriach: " + checkedCategories ;
 
         var placeForInstitution = document.querySelector('#placeForInstitution');
         placeForInstitution.innerText = "Dla instytucji: " + institution;
@@ -248,7 +266,11 @@
 
         var placeForPickUpComment = document.querySelector('#placeForPickUpComment');
         placeForPickUpComment.innerText = pickUpComment;
+
+        console.log(checkedCategories);
     }
+
+
 </script>
 
 </body>

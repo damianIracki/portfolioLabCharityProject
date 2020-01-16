@@ -8,7 +8,7 @@
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
-    <title>Document</title>
+    <title>Charity</title>
 
     <link rel="stylesheet" href="<c:url value="resources/css/style.css"/>"/>
 </head>
@@ -62,7 +62,7 @@
         </div>
     </div>
 
-    <a href="#" class="btn btn--large">Załóż konto</a>
+    <a href="/register" class="btn btn--large">Załóż konto</a>
 </section>
 
 <section class="about-us">
