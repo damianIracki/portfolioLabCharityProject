@@ -14,15 +14,18 @@ import java.util.Set;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Table(name = "users")
 public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    private String userName;
+
     @Column(nullable = false, unique = true, length = 30)
     @Email
-    private String username;
+    private String email;
 
     private String password;
 
@@ -30,7 +33,7 @@ public class User {
 
     private String lastName;
 
-    private int enabled;
+    private boolean active;
 
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(name = "user_role")
