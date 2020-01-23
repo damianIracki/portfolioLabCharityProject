@@ -37,7 +37,7 @@ public class UserController {
         user.setLastName(userDto.getLastName());
         user.setUserName(userDto.getEmail());
         userService.saveUser(user);
-        return "index";
+        return "redirect:/";
     }
 
     @RequestMapping("/user")

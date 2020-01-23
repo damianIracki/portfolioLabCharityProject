@@ -3,6 +3,7 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
 <header class="header--form-page">
     <nav class="container container--70">
@@ -14,7 +15,12 @@
                     <li><a href="#">Profil</a></li>
                     <li><a href="#">Ustawienia</a></li>
                     <li><a href="#">Moje zbiórki</a></li>
-                    <li><a href="/logout">Wyloguj</a></li>
+                    <li>
+                        <form action="<c:url value="/logout"/>" method="post">
+                            <input class="fa fa-id-badge" type="submit" value="Wyloguj">
+                            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                        </form>
+                    </li>
                 </ul>
             </li>
         </ul>

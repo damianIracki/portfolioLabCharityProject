@@ -62,7 +62,8 @@
         </div>
     </div>
 
-    <a href="/register" class="btn btn--large">Załóż konto</a>
+    <a href="/register" class="btn btn--large">Załóż konto</a><br>
+    <a href="/donation" class="btn btn--large">Podaruj dotację bez rejestracji</a>
 </section>
 
 <section class="about-us">

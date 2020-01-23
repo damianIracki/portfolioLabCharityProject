@@ -38,7 +38,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .passwordParameter("password")
                 .usernameParameter("email")
                 .successHandler(myAuthenticationSuccessHandler())
-                .and().logout().logoutSuccessUrl("/")
+                .and().logout().logoutSuccessUrl("/").permitAll()
                 .and().exceptionHandling().accessDeniedPage("/403");
     }
 
