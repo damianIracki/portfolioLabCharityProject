@@ -10,19 +10,18 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Edytuj użytkownika</title>
+    <title>Zmień hasło</title>
     <link rel="stylesheet" href="<c:url value="resources/css/style.css"/>"/>
 </head>
 <body>
-<%@include file="/WEB-INF/adminHeader.jspf"%>
+<%@include file="/WEB-INF/userHeader.jspf"%>
 
-<h1>Edycja użytkownika ${user.email}</h1>
+<h1>Zmień hasło</h1>
 
-<form:form modelAttribute="user" method="post">
-    Email: <form:input path="email"/><br>
-    Imię: <form:input path="firstName"/><br>
-    Nazwisko: <form:input path="lastName"/><br>
-    <form:hidden path="id"/>
+<form:form modelAttribute="changePasswordDto" method="post">
+    Stare hasło: <form:password path="oldPassword"/><br>
+    Nowe hasło: <form:password path="newPassword"/><br>
+    Powtórz nowe hasło: <form:password path="confirmPassword"/><br>
     <input type="submit" value="Zapisz">
 </form:form>
 

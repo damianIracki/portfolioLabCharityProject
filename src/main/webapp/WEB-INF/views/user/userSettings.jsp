@@ -2,7 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
 <!DOCTYPE html>
 <html lang="pl">
@@ -10,20 +10,16 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Edytuj użytkownika</title>
+    <title>Profile</title>
     <link rel="stylesheet" href="<c:url value="resources/css/style.css"/>"/>
 </head>
 <body>
-<%@include file="/WEB-INF/adminHeader.jspf"%>
+<%@include file="/WEB-INF/userHeader.jspf"%>
 
-<h1>Edycja użytkownika ${user.email}</h1>
+<h1>Ustawienia</h1>
 
-<form:form modelAttribute="user" method="post">
-    Email: <form:input path="email"/><br>
-    Imię: <form:input path="firstName"/><br>
-    Nazwisko: <form:input path="lastName"/><br>
-    <form:hidden path="id"/>
-    <input type="submit" value="Zapisz">
-</form:form>
-
+<ul>
+    <li><a href="/user/editProfile">Edytuj profil</a></li>
+    <li><a href="/user/changePassword">Zmień hasło</a></li>
+</ul>
 </body>

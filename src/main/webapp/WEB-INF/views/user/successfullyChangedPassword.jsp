@@ -10,20 +10,16 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Edytuj użytkownika</title>
+    <title>Zmień hasło</title>
     <link rel="stylesheet" href="<c:url value="resources/css/style.css"/>"/>
 </head>
 <body>
-<%@include file="/WEB-INF/adminHeader.jspf"%>
 
-<h1>Edycja użytkownika ${user.email}</h1>
+<h1>Hasło zostało zmienione pomyślnie</h1>
 
-<form:form modelAttribute="user" method="post">
-    Email: <form:input path="email"/><br>
-    Imię: <form:input path="firstName"/><br>
-    Nazwisko: <form:input path="lastName"/><br>
-    <form:hidden path="id"/>
-    <input type="submit" value="Zapisz">
-</form:form>
+<form action="<c:url value="/logout"/>" method="post">
+    <input class="fa fa-id-badge" type="submit" value="Powrót do MainaAge">
+    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+</form>
 
 </body>

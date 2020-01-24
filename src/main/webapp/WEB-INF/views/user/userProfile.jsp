@@ -22,5 +22,4 @@
 <a>Nazwisko: ${user.lastName}</a><br>
 <br>
 
-<a href="/user/edit">Edytuj Profil</a>
 </body>

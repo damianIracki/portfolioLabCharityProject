@@ -10,13 +10,13 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Edytuj użytkownika</title>
+    <title>Edytuj Profil</title>
     <link rel="stylesheet" href="<c:url value="resources/css/style.css"/>"/>
 </head>
 <body>
-<%@include file="/WEB-INF/adminHeader.jspf"%>
+<%@include file="/WEB-INF/userHeader.jspf"%>
 
-<h1>Edycja użytkownika ${user.email}</h1>
+<h1>Edytuj profil</h1>
 
 <form:form modelAttribute="user" method="post">
     Email: <form:input path="email"/><br>
