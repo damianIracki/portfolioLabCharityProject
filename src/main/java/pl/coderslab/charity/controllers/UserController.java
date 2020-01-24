@@ -11,7 +11,9 @@ import pl.coderslab.charity.entities.User;
 import pl.coderslab.charity.services.UserService;
 
 
+
 @Controller
+@RequestMapping("/")
 public class UserController {
 
 
@@ -40,9 +42,4 @@ public class UserController {
         return "redirect:/";
     }
 
-    @RequestMapping("/user")
-    @Secured("ROLE_USER")
-    public String userMainPage(Model model){
-        return "userMainPage";
-    }
 }

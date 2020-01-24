@@ -22,14 +22,14 @@ public class InstitutionController {
     public String trustedInstitutionsList(Model model){
         List<Institution> institutions = institutionRepository.findAllByOrderByNameAsc();
         model.addAttribute("institutions", institutions);
-        return "admin/trustedInstitutionsList";
+        return "institution/trustedInstitutionsList";
     }
 
     @RequestMapping(path = "/add", method = RequestMethod.GET)
     public String addInstitution(Model model){
         Institution institution = new Institution();
         model.addAttribute("institution", institution);
-        return "admin/institutionForm";
+        return "institution/institutionForm";
     }
 
     @RequestMapping(path = "/add", method = RequestMethod.POST)
@@ -42,7 +42,7 @@ public class InstitutionController {
     public String editInstitution(@PathVariable("id") Long id, Model model){
         Institution institution = institutionRepository.findFirstById(id);
         model.addAttribute("institution", institution);
-        return "admin/editInstitutionForm";
+        return "institution/editInstitutionForm";
     }
 
     @RequestMapping(path = "/edit/{id}", method = RequestMethod.POST)

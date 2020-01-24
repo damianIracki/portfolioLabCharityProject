@@ -35,7 +35,9 @@ public class User {
 
     private boolean active;
 
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "user_role")
     private Set<Role> roles;
+
+
 }

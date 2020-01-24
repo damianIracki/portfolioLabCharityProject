@@ -5,7 +5,9 @@
 
 <header>
     <a href="/institution/">Lista ZI</a>
-
+    <a href="/admin/list">Lista administratorów</a>
+    <a href="/usersManagement/list">Lista użytkowników</a>
+    <a href="/logout">Wyloguj</a>
     <br>
     <br>
 </header>
