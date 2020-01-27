@@ -23,12 +23,12 @@ public class AdminController {
     @Autowired
     private RoleRepository roleRepository;
 
-    @RequestMapping(path = "/panel")
+    @RequestMapping(path = "/panel", method = RequestMethod.GET)
     public String adminPanel(){
         return "admin/adminMainPage";
     }
 
-    @RequestMapping(path = "/list")
+    @RequestMapping(path = "/list", method = RequestMethod.GET)
     public String adminList(Model model){
         Role role = roleRepository.findByRole("ROLE_ADMIN");
         List<User> admins = userRepository.findAllByRolesContainsOrderById(role);
@@ -36,7 +36,7 @@ public class AdminController {
         return "admin/adminList";
     }
 
-    @RequestMapping(path = "/add")
+    @RequestMapping(path = "/add", method = RequestMethod.GET)
     public String addAdminList(Model model){
         Role role = roleRepository.findByRole("ROLE_ADMIN");
         List<User> users = userRepository.findAllByRolesNotContainsOrderById(role);
@@ -44,7 +44,7 @@ public class AdminController {
         return "admin/addAdminForm";
     }
 
-    @RequestMapping(path = "/add/{id}")
+    @RequestMapping(path = "/add/{id}", method = RequestMethod.PUT)
     public String addAdmin(@PathVariable Long id){
         User user=  userRepository.findFirstById(id);
         Role role = roleRepository.findByRole("ROLE_ADMIN");
@@ -53,7 +53,7 @@ public class AdminController {
         return "redirect:/admin/list";
     }
 
-    @RequestMapping(path = "/delete/{id}")
+    @RequestMapping(path = "/delete/{id}", method = RequestMethod.DELETE)
     public String deleteAdmin(@PathVariable Long id){
         Role role = roleRepository.findByRole("ROLE_ADMIN");
         List<User> admins = userRepository.findAllByRolesContainsOrderById(role);
@@ -73,7 +73,7 @@ public class AdminController {
         return "editUserForm";
     }
 
-    @RequestMapping(path = "/edit/{id}", method = RequestMethod.POST)
+    @RequestMapping(path = "/edit/{id}", method = RequestMethod.PUT)
     public String saveEditAdmin(@ModelAttribute() User user, @PathVariable Long id){
         User adminToSave = userRepository.findFirstById(id);
         adminToSave.setUserName(user.getEmail());

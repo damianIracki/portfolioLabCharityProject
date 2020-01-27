@@ -26,7 +26,7 @@ public class UserManagementController {
     @Autowired
     private RoleRepository roleRepository;
 
-    @RequestMapping(path = "/list")
+    @RequestMapping(path = "/list", method = RequestMethod.GET)
     public String usersList(Model model){
         Role adminRole = roleRepository.findByRole("ROLE_ADMIN");
         Role userRole = roleRepository.findByRole("ROLE_USER");
@@ -35,14 +35,14 @@ public class UserManagementController {
         return "usersManagement/usersList";
     }
 
-    @RequestMapping(path = "/delete/{id}")
+    @RequestMapping(path = "/delete/{id}", method = RequestMethod.DELETE)
     public String deleteUser(@PathVariable Long id){
         User user = userRepository.findFirstById(id);
         userRepository.delete(user);
         return "redirect:/usersManagement/list";
     }
 
-    @RequestMapping(path = "/ban/{id}")
+    @RequestMapping(path = "/ban/{id}", method = RequestMethod.PUT)
     public String banUser(@PathVariable Long id){
         User user  = userRepository.findFirstById(id);
         if(user.getActive()==true){
@@ -61,7 +61,7 @@ public class UserManagementController {
         return "editUserForm";
     }
 
-    @RequestMapping(path = "/edit/{id}", method = RequestMethod.POST)
+    @RequestMapping(path = "/edit/{id}", method = RequestMethod.PUT)
     public String saveEditUser(@ModelAttribute User user, @PathVariable Long id){
         User userToSave = userRepository.findFirstById(id);
         userToSave.setEmail(user.getEmail());

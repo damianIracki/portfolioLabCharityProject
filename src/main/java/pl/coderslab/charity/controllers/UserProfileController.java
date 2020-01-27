@@ -30,7 +30,7 @@ public class UserProfileController {
     private DonationRepository donationRepository;
 
 
-    @RequestMapping("")
+    @RequestMapping(value = "", method = RequestMethod.GET)
     public String userMainPage(@AuthenticationPrincipal UserDetails customUser, Model model){
         model.addAttribute("customUser", customUser);
         User user = userRepository.findByUserName(customUser.getUsername());
@@ -38,7 +38,7 @@ public class UserProfileController {
         return "user/userMainPage";
     }
 
-    @RequestMapping("/profile")
+    @RequestMapping(value = "/profile", method = RequestMethod.GET)
     public String showUserProfile(@AuthenticationPrincipal UserDetails customUser, Model model){
         model.addAttribute("customUser", customUser);
         User user = userRepository.findByUserName(customUser.getUsername());
@@ -58,7 +58,7 @@ public class UserProfileController {
         return "user/editUserForm";
     }
 
-    @RequestMapping(path = "/editProfile", method = RequestMethod.POST)
+    @RequestMapping(path = "/editProfile", method = RequestMethod.PUT)
     public String saveEditUser(@ModelAttribute User user, @AuthenticationPrincipal UserDetails customUser){
         User userToSave = userRepository.findByUserName(customUser.getUsername());
         userToSave.setFirstName(user.getFirstName());
@@ -76,7 +76,7 @@ public class UserProfileController {
         return "user/changePassword";
     }
 
-    @RequestMapping(path = "/changePassword", method = RequestMethod.POST)
+    @RequestMapping(path = "/changePassword", method = RequestMethod.PUT)
     public String saveChangedPassword(@AuthenticationPrincipal UserDetails customUser, @ModelAttribute ChangePasswordDto changePasswordDto){
         BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
         User user = userRepository.findByUserName(customUser.getUsername());
@@ -89,7 +89,7 @@ public class UserProfileController {
         return "unsuccessfullyChangedPassword";
     }
 
-    @RequestMapping(path = "/myDonations")
+    @RequestMapping(path = "/myDonations", method = RequestMethod.GET)
     public String myDonationsList(Model model, @AuthenticationPrincipal UserDetails customUser){
         User user = userRepository.findByUserName(customUser.getUsername());
         List<Donation> donations = donationRepository.findAllByUserOrderByReceivedAscPickUpDateAscPickUpTimeAscCreateDateAsc(user);

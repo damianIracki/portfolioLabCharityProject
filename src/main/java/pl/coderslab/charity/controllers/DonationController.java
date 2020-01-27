@@ -61,6 +61,4 @@ public class DonationController {
         return "form-confirmation";
     }
 
-
-
 }

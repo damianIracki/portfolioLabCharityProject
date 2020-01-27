@@ -18,7 +18,7 @@ public class InstitutionController {
     @Autowired
     private InstitutionRepository institutionRepository;
 
-    @RequestMapping(path = "/")
+    @RequestMapping(path = "/", method = RequestMethod.GET)
     public String trustedInstitutionsList(Model model){
         List<Institution> institutions = institutionRepository.findAllByOrderByNameAsc();
         model.addAttribute("institutions", institutions);
@@ -45,13 +45,13 @@ public class InstitutionController {
         return "institution/editInstitutionForm";
     }
 
-    @RequestMapping(path = "/edit/{id}", method = RequestMethod.POST)
+    @RequestMapping(path = "/edit/{id}", method = RequestMethod.PUT)
     public String saveEditInstitution(@ModelAttribute Institution institution){
         institutionRepository.save(institution);
         return "redirect:/institution/";
     }
 
-    @RequestMapping(path = "/delete/{id}")
+    @RequestMapping(path = "/delete/{id}", method = RequestMethod.DELETE)
     public String deleteInstitution(@PathVariable Long id){
         Institution institution = institutionRepository.findFirstById(id);
         institutionRepository.delete(institution);
