@@ -47,6 +47,7 @@
             <td>${donation.isReceived()}</td>
             <td>${donation.quantity}</td>
             <td>${donation.pickUpComment}</td>
+            <td><a href="/user/donationDetails/${donation.id}">Szczegóły</a> </td>
         </tr>
     </c:forEach>
 </table>

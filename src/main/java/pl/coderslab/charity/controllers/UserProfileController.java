@@ -93,16 +93,18 @@ public class UserProfileController {
     public String myDonationsList(Model model, @AuthenticationPrincipal UserDetails customUser){
         User user = userRepository.findByUserName(customUser.getUsername());
         List<Donation> donations = donationRepository.findAllByUserOrderByReceivedAscPickUpDateAscPickUpTimeAscCreateDateAsc(user);
-        for (Donation donation : donations) {
-            if(donation.getPickUpDate() != null && donation.getPickUpTime()!= null){
-                if(LocalDate.now().isAfter(donation.getPickUpDate()) && LocalTime.now().isAfter(donation.getPickUpTime())){
-                    donation.setReceived(true);
-                    donationRepository.save(donation);
-                }
-            }
-
-        }
         model.addAttribute("myDonations", donations);
         return "donation/myDonationsList";
+    }
+
+    @RequestMapping(path = "/donationDetails/{id}",method = RequestMethod.GET)
+    public String donationDetail(Model model, @AuthenticationPrincipal UserDetails customUser, @PathVariable Long id){
+        User user = userRepository.findByUserName(customUser.getUsername());
+        Donation donation = donationRepository.getOne(id);
+        if(donation.getUser().getId() != user.getId()){
+            return "redirect:/403";
+        }
+        model.addAttribute("donation", donation);
+        return "donation/donationDetails";
     }
 }
