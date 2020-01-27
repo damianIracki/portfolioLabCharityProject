@@ -33,7 +33,7 @@ public class User {
 
     private String lastName;
 
-    private boolean active;
+    private Boolean active;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "user_role")

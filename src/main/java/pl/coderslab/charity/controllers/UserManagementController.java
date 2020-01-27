@@ -30,7 +30,7 @@ public class UserManagementController {
     public String usersList(Model model){
         Role adminRole = roleRepository.findByRole("ROLE_ADMIN");
         Role userRole = roleRepository.findByRole("ROLE_USER");
-        List<User> users = userRepository.findAllByRolesNotContainsAndRolesContainsOrderById(adminRole, userRole);
+        List<User> users = userRepository.findAllByRolesNotContainsOrderById(adminRole);
         model.addAttribute("users", users);
         return "usersManagement/usersList";
     }
@@ -45,7 +45,7 @@ public class UserManagementController {
     @RequestMapping(path = "/ban/{id}")
     public String banUser(@PathVariable Long id){
         User user  = userRepository.findFirstById(id);
-        if(user.isActive()==true){
+        if(user.getActive()==true){
             user.setActive(false);
         } else {
             user.setActive(true);

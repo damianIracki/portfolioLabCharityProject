@@ -10,10 +10,10 @@
         <sec:authorize access="isAuthenticated()">
         <ul class="nav--actions">
             <li class="logged-user">
-                Witaj Agata
+                Witaj <sec:authentication property="name"/>
                 <ul class="dropdown">
-                    <li><a href="#">Profil</a></li>
-                    <li><a href="#">Ustawienia</a></li>
+                    <li><a href="/user/profile">Profil</a></li>
+                    <li><a href="/user/settings">Ustawienia</a></li>
                     <li><a href="#">Moje zbiórki</a></li>
                     <li>
                         <form action="<c:url value="/logout"/>" method="post">

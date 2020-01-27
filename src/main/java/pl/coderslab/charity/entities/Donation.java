@@ -47,4 +47,14 @@ public class Donation {
     private Institution institution;
 
     private String phoneNumber;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate createDate;
+
+    private boolean received;
+
 }

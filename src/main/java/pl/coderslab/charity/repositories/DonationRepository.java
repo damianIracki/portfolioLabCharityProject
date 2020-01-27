@@ -3,6 +3,7 @@ package pl.coderslab.charity.repositories;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import pl.coderslab.charity.entities.Donation;
+import pl.coderslab.charity.entities.User;
 
 import java.util.List;
 
@@ -19,5 +20,6 @@ public interface DonationRepository extends JpaRepository<Donation, Long>{
     @Override
     <S extends Donation> S save(S s);
 
+    List<Donation> findAllByUserOrderByReceivedAscPickUpDateAscPickUpTimeAscCreateDateAsc(User user);
 
 }

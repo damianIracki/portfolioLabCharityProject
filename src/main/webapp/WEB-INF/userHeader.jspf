@@ -14,7 +14,7 @@
                     <ul class="dropdown">
                         <li><a href="/user/profile">Profil</a></li>
                         <li><a href="/user/settings">Ustawienia</a></li>
-                        <li><a href="#">Moje zbiórki</a></li>
+                        <li><a href="/user/myDonations">Moje zbiórki</a></li>
                         <li>
                             <form action="<c:url value="/logout"/>" method="post">
                                 <input class="fa fa-id-badge" type="submit" value="Wyloguj">

@@ -9,8 +9,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import pl.coderslab.charity.dto.ChangePasswordDto;
+import pl.coderslab.charity.entities.Donation;
 import pl.coderslab.charity.entities.User;
+import pl.coderslab.charity.repositories.DonationRepository;
 import pl.coderslab.charity.repositories.UserRepository;
+
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.List;
 
 @Controller
 @RequestMapping("/user")
@@ -19,6 +25,9 @@ public class UserProfileController {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private DonationRepository donationRepository;
 
 
     @RequestMapping("")
@@ -77,6 +86,23 @@ public class UserProfileController {
                 return "user/successfullyChangedPassword";
             }
         }
-        return "user/unsuccessfullyChangedPassword";
+        return "unsuccessfullyChangedPassword";
+    }
+
+    @RequestMapping(path = "/myDonations")
+    public String myDonationsList(Model model, @AuthenticationPrincipal UserDetails customUser){
+        User user = userRepository.findByUserName(customUser.getUsername());
+        List<Donation> donations = donationRepository.findAllByUserOrderByReceivedAscPickUpDateAscPickUpTimeAscCreateDateAsc(user);
+        for (Donation donation : donations) {
+            if(donation.getPickUpDate() != null && donation.getPickUpTime()!= null){
+                if(LocalDate.now().isAfter(donation.getPickUpDate()) && LocalTime.now().isAfter(donation.getPickUpTime())){
+                    donation.setReceived(true);
+                    donationRepository.save(donation);
+                }
+            }
+
+        }
+        model.addAttribute("myDonations", donations);
+        return "donation/myDonationsList";
     }
 }

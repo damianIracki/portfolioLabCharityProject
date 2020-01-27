@@ -39,13 +39,13 @@
             <td>${user.email}</td>
             <td>${user.firstName}</td>
             <td>${user.lastName}</td>
-            <td>${user.isActive()}</td>
+            <td>${user.active}</td>
             <td><a href="/usersManagement/edit/${user.id}">Edytuj</a>/
                 <c:choose>
-                    <c:when test="${user.isActive()==true}">
+                    <c:when test="${user.active==true}">
                         <a href="/usersManagement/ban/${user.id}">Ban</a>
                     </c:when>
-                    <c:when test="${user.isActive()==false}">
+                    <c:when test="${user.active==false}">
                         <a href="/usersManagement/ban/${user.id}">Unban</a>
                     </c:when>
                     <c:otherwise>
