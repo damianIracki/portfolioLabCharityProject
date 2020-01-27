@@ -18,7 +18,7 @@
 
 <h1>Edytuj profil</h1>
 
-<form:form modelAttribute="user" method="post">
+<form:form modelAttribute="user" method="put">
     Email: <form:input path="email"/><br>
     Imię: <form:input path="firstName"/><br>
     Nazwisko: <form:input path="lastName"/><br>

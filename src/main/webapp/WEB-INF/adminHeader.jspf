@@ -7,7 +7,10 @@
     <a href="/institution/">Lista ZI</a>
     <a href="/admin/list">Lista administratorów</a>
     <a href="/usersManagement/list">Lista użytkowników</a>
-    <a href="/logout">Wyloguj</a>
+    <form action="<c:url value="/logout"/>" method="post">
+        <input class="fa fa-id-badge" type="submit" value="Wyloguj">
+        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+    </form>
     <br>
     <br>
 </header>

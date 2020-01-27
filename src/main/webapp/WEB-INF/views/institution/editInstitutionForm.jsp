@@ -18,7 +18,7 @@
 <%@include file="/WEB-INF/adminHeader.jspf"%>
 
 <p>Edcyja instytucji: ${institution.name}</p>
-<form:form method="post" modelAttribute="institution">
+<form:form method="put" modelAttribute="institution">
     Name: <form:input path="name"/><br>
     Description: <form:input path="description"/><br>
     <form:hidden path="id"/>

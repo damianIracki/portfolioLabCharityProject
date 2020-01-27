@@ -29,7 +29,6 @@ public class UserManagementController {
     @RequestMapping(path = "/list", method = RequestMethod.GET)
     public String usersList(Model model){
         Role adminRole = roleRepository.findByRole("ROLE_ADMIN");
-        Role userRole = roleRepository.findByRole("ROLE_USER");
         List<User> users = userRepository.findAllByRolesNotContainsOrderById(adminRole);
         model.addAttribute("users", users);
         return "usersManagement/usersList";
@@ -42,7 +41,7 @@ public class UserManagementController {
         return "redirect:/usersManagement/list";
     }
 
-    @RequestMapping(path = "/ban/{id}", method = RequestMethod.PUT)
+    @RequestMapping(path = "/ban/{id}", method = RequestMethod.GET)
     public String banUser(@PathVariable Long id){
         User user  = userRepository.findFirstById(id);
         if(user.getActive()==true){

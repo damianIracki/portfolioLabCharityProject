@@ -18,7 +18,7 @@
 
 <h1>Zmień hasło</h1>
 
-<form:form modelAttribute="changePasswordDto" method="post">
+<form:form modelAttribute="changePasswordDto" method="put">
     Stare hasło: <form:password path="oldPassword"/><br>
     Nowe hasło: <form:password path="newPassword"/><br>
     Powtórz nowe hasło: <form:password path="confirmPassword"/><br>
