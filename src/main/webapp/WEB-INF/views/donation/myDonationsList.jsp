@@ -3,6 +3,7 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
 <!DOCTYPE html>
 <html lang="pl">
@@ -22,15 +23,19 @@
 <%@include file="/WEB-INF/userHeader.jspf"%>
 
 <h1>Moje dotacje:</h1>
+<br>
+<br>
+<a href="/donation">Przekaż dotację</a>
 <table>
     <thead>
     <th>Create date</th>
     <th>Pick up date</th>
     <th>Pick up time</th>
     <th>Categories</th>
-    <th>Received</th>
     <th>Bags quantity</th>
     <th>Comment</th>
+    <th>Status</th>
+    <th>Zmień status</th>
     </thead>
     <c:forEach items="${myDonations}" var="donation">
         <tr>
@@ -44,14 +49,15 @@
                     </c:forEach>
                 </ul>
             </td>
-            <td>${donation.isReceived()}</td>
             <td>${donation.quantity}</td>
             <td>${donation.pickUpComment}</td>
-            <td><a href="/user/donationDetails/${donation.id}">Szczegóły</a> </td>
+            <td>${donation.donationStatus.name}</td>
+            <td>
+
+            </td>
+            <td><a href="/user/donationDetails/${donation.id}">Szczegóły</a></td>
         </tr>
+
     </c:forEach>
 </table>
-<br>
-<br>
-<a href="/donation">Przekaż dotację</a>
 </body>

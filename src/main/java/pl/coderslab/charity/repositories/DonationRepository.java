@@ -20,6 +20,6 @@ public interface DonationRepository extends JpaRepository<Donation, Long>{
     @Override
     <S extends Donation> S save(S s);
 
-    List<Donation> findAllByUserOrderByReceivedAscPickUpDateAscPickUpTimeAscCreateDateAsc(User user);
+    List<Donation> findAllByUserOrderByPickUpDateAscPickUpTimeAscCreateDateAsc(User user);
 
 }

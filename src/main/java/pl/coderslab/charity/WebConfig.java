@@ -7,6 +7,7 @@ import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import pl.coderslab.charity.converters.CategoryConverter;
 import pl.coderslab.charity.converters.InstitutionConverter;
+import pl.coderslab.charity.converters.StatusConverter;
 
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
@@ -15,6 +16,7 @@ public class WebConfig implements WebMvcConfigurer {
     public void addFormatters(FormatterRegistry registry) {
         registry.addConverter(getInstitutionConverter());
         registry.addConverter(getCategoryConverter());
+        registry.addConverter(getStatusConverter());
     }
 
     @Bean
@@ -28,6 +30,10 @@ public class WebConfig implements WebMvcConfigurer {
         return new CategoryConverter();
     }
 
+    @Bean
+    StatusConverter getStatusConverter(){
+        return new StatusConverter();
+    }
 
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {

@@ -9,14 +9,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import pl.coderslab.charity.entities.Category;
-import pl.coderslab.charity.entities.Donation;
-import pl.coderslab.charity.entities.Institution;
-import pl.coderslab.charity.entities.User;
-import pl.coderslab.charity.repositories.CategoryRepository;
-import pl.coderslab.charity.repositories.DonationRepository;
-import pl.coderslab.charity.repositories.InstitutionRepository;
-import pl.coderslab.charity.repositories.UserRepository;
+import pl.coderslab.charity.entities.*;
+import pl.coderslab.charity.repositories.*;
 import pl.coderslab.charity.services.UserService;
 
 import java.time.LocalDate;
@@ -37,6 +31,9 @@ public class DonationController {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private DonationStatusRepository donationStatusRepository;
+
     @RequestMapping(path = "/donation", method = RequestMethod.GET)
     public String addDonationForm(Model model){
         List<Category> categories = categoryRepository.findAllByOrderByIdAsc();
@@ -56,7 +53,8 @@ public class DonationController {
             donation.setUser(user);
         }
         donation.setCreateDate(LocalDate.now());
-        donation.setReceived(false);
+        DonationStatus donationStatus = donationStatusRepository.findFirstByName("nieodebrane");
+        donation.setDonationStatus(donationStatus);
         donationRepository.save(donation);
         return "form-confirmation";
     }

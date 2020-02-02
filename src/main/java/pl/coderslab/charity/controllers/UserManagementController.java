@@ -34,7 +34,7 @@ public class UserManagementController {
         return "usersManagement/usersList";
     }
 
-    @RequestMapping(path = "/delete/{id}", method = RequestMethod.DELETE)
+    @RequestMapping(path = "/delete/{id}", method = RequestMethod.GET)
     public String deleteUser(@PathVariable Long id){
         User user = userRepository.findFirstById(id);
         userRepository.delete(user);

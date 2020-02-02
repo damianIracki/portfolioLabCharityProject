@@ -55,6 +55,11 @@ public class Donation {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate createDate;
 
-    private boolean received;
+    @ManyToOne
+    @JoinColumn(name = "status_id")
+    private DonationStatus donationStatus;
+
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate receivedDate;
 
 }

@@ -10,12 +10,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import pl.coderslab.charity.dto.ChangePasswordDto;
 import pl.coderslab.charity.entities.Donation;
+import pl.coderslab.charity.entities.DonationStatus;
 import pl.coderslab.charity.entities.User;
 import pl.coderslab.charity.repositories.DonationRepository;
+import pl.coderslab.charity.repositories.DonationStatusRepository;
 import pl.coderslab.charity.repositories.UserRepository;
 
 import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.List;
 
 @Controller
@@ -28,6 +29,9 @@ public class UserProfileController {
 
     @Autowired
     private DonationRepository donationRepository;
+
+    @Autowired
+    private DonationStatusRepository donationStatusRepository;
 
 
     @RequestMapping(value = "", method = RequestMethod.GET)
@@ -92,9 +96,20 @@ public class UserProfileController {
     @RequestMapping(path = "/myDonations", method = RequestMethod.GET)
     public String myDonationsList(Model model, @AuthenticationPrincipal UserDetails customUser){
         User user = userRepository.findByUserName(customUser.getUsername());
-        List<Donation> donations = donationRepository.findAllByUserOrderByReceivedAscPickUpDateAscPickUpTimeAscCreateDateAsc(user);
+        List<Donation> donations = donationRepository.findAllByUserOrderByPickUpDateAscPickUpTimeAscCreateDateAsc(user);
+        List<DonationStatus> donationStatuses = donationStatusRepository.findAll();
+        model.addAttribute("donationStatus", new DonationStatus());
+        model.addAttribute("donationStatuses", donationStatuses);
         model.addAttribute("myDonations", donations);
         return "donation/myDonationsList";
+    }
+
+    @RequestMapping(path = "/myDonations", method = RequestMethod.PUT)
+    public String changeDonationStatus(@ModelAttribute Donation donation){
+        donation.setReceivedDate(LocalDate.now());
+
+        donationRepository.save(donation);
+        return "redirect:/user/myDonation";
     }
 
     @RequestMapping(path = "/donationDetails/{id}",method = RequestMethod.GET)
@@ -104,7 +119,24 @@ public class UserProfileController {
         if(donation.getUser().getId() != user.getId()){
             return "redirect:/403";
         }
+        List<DonationStatus> donationStatuses = donationStatusRepository.findAll();
         model.addAttribute("donation", donation);
+        model.addAttribute("donationStatuses", donationStatuses);
+        model.addAttribute("donationStatus", new DonationStatus());
         return "donation/donationDetails";
+    }
+
+    @RequestMapping(path = "/donationDetails/{id}", method = RequestMethod.POST)
+    public String setDonationStatus (@PathVariable Long id, @ModelAttribute DonationStatus donationStatus){
+        DonationStatus donationStatusToSave = donationStatusRepository.getOne(donationStatus.getId());
+        Donation donation = donationRepository.getOne(id);
+        donation.setDonationStatus(donationStatusToSave);
+        if(donationStatusToSave.equals(donationStatusRepository.findFirstByName("odebrane"))){
+            donation.setReceivedDate(LocalDate.now());
+        } else {
+            donation.setReceivedDate(null);
+        }
+        donationRepository.save(donation);
+        return "redirect:/user/myDonations";
     }
 }

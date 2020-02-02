@@ -28,6 +28,22 @@ Ilość worków: ${donation.quantity}<br>
     </ul>
 </p>
 <p>Instytucja: ${donation.institution.name}</p>
+<p>Status dotacji: ${donation.donationStatus.name}</p>
+<c:if test="${donation.donationStatus.name == 'odebrane'}">
+    <p>Data odebrania dotacji: ${donation.receivedDate}</p>
+</c:if>
 
-<a href="/donation/myDonations">Wróć do listy dotacji</a>
+<p>Zmień status dotacji</p>
+<form:form modelAttribute="donationStatus" method="post">
+    <form:select path="id">
+        <c:forEach items="${donationStatuses}" var="status">
+            <form:option label="${status.name}" value = "${status.id}"/>
+        </c:forEach>
+    </form:select>
+    <input type="submit" value="Zmień status"/>
+</form:form>
+<br>
+
+<br>
+<a href="/user/myDonations">Wróć do listy dotacji</a>
 </body>
