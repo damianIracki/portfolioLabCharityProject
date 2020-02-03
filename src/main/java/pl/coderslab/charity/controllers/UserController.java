@@ -2,12 +2,13 @@ package pl.coderslab.charity.controllers;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.annotation.Secured;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import pl.coderslab.charity.dto.UserDto;
 import pl.coderslab.charity.entities.User;
+import pl.coderslab.charity.mailSander.EmailSender;
 import pl.coderslab.charity.services.UserService;
 
 
@@ -16,6 +17,8 @@ import pl.coderslab.charity.services.UserService;
 @RequestMapping("/")
 public class UserController {
 
+    @Autowired
+    private EmailSender emailSender;
 
     private final UserService userService;
 
@@ -39,6 +42,9 @@ public class UserController {
         user.setLastName(userDto.getLastName());
         user.setUserName(userDto.getEmail());
         userService.saveUser(user);
+
+        emailSender.sendEmail(userDto.getEmail(), "Pomyślna rejestracja", "Zarejestorwano ponyślnie!");
+
         return "redirect:/";
     }
 
