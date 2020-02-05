@@ -26,11 +26,11 @@ public class UserService {
     }
 
     User findUserByEmail(String email){
-        return userRepository.findByEmail(email);
+        return userRepository.findByEmailIgnoreCase(email);
     }
 
     User findUserByUserName(String userName){
-        return userRepository.findByUserName(userName);
+        return userRepository.findByUserNameIgnoreCase(userName);
     }
 
     public User saveUser(User user){

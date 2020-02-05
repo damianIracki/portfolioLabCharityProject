@@ -15,9 +15,9 @@ import java.util.List;
 @Transactional
 public interface UserRepository extends JpaRepository<User, Long> {
 
-    User findByEmail(String email);
+    User findByEmailIgnoreCase(String email);
 
-    User findByUserName(String userName);
+    User findByUserNameIgnoreCase(String userName);
 
     List<User> findAllByRolesContainsOrderById(Role role);
 

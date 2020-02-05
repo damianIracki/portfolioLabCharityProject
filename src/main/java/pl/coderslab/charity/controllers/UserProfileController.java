@@ -37,7 +37,7 @@ public class UserProfileController {
     @RequestMapping(value = "", method = RequestMethod.GET)
     public String userMainPage(@AuthenticationPrincipal UserDetails customUser, Model model){
         model.addAttribute("customUser", customUser);
-        User user = userRepository.findByUserName(customUser.getUsername());
+        User user = userRepository.findByUserNameIgnoreCase(customUser.getUsername());
         model.addAttribute("user", user);
         return "user/userMainPage";
     }
@@ -45,7 +45,7 @@ public class UserProfileController {
     @RequestMapping(value = "/profile", method = RequestMethod.GET)
     public String showUserProfile(@AuthenticationPrincipal UserDetails customUser, Model model){
         model.addAttribute("customUser", customUser);
-        User user = userRepository.findByUserName(customUser.getUsername());
+        User user = userRepository.findByUserNameIgnoreCase(customUser.getUsername());
         model.addAttribute("user", user);
         return "user/userProfile";
     }
@@ -57,14 +57,14 @@ public class UserProfileController {
 
     @RequestMapping(path="/editProfile", method = RequestMethod.GET)
     public String editProfile(@AuthenticationPrincipal UserDetails customUser, Model model){
-        User user = userRepository.findByUserName(customUser.getUsername());
+        User user = userRepository.findByUserNameIgnoreCase(customUser.getUsername());
         model.addAttribute("user", user);
         return "user/editUserForm";
     }
 
     @RequestMapping(path = "/editProfile", method = RequestMethod.PUT)
     public String saveEditUser(@ModelAttribute User user, @AuthenticationPrincipal UserDetails customUser){
-        User userToSave = userRepository.findByUserName(customUser.getUsername());
+        User userToSave = userRepository.findByUserNameIgnoreCase(customUser.getUsername());
         userToSave.setFirstName(user.getFirstName());
         userToSave.setLastName(user.getLastName());
         userToSave.setEmail(user.getEmail());
@@ -83,7 +83,7 @@ public class UserProfileController {
     @RequestMapping(path = "/changePassword", method = RequestMethod.PUT)
     public String saveChangedPassword(@AuthenticationPrincipal UserDetails customUser, @ModelAttribute ChangePasswordDto changePasswordDto){
         BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
-        User user = userRepository.findByUserName(customUser.getUsername());
+        User user = userRepository.findByUserNameIgnoreCase(customUser.getUsername());
         if(bCryptPasswordEncoder.matches(changePasswordDto.getOldPassword(), user.getPassword())){
             if(changePasswordDto.getConfirmPassword().equals(changePasswordDto.getNewPassword())){
                 userRepository.updateUserPassword(bCryptPasswordEncoder.encode(changePasswordDto.getNewPassword()), user.getUserName());
@@ -95,7 +95,7 @@ public class UserProfileController {
 
     @RequestMapping(path = "/myDonations", method = RequestMethod.GET)
     public String myDonationsList(Model model, @AuthenticationPrincipal UserDetails customUser){
-        User user = userRepository.findByUserName(customUser.getUsername());
+        User user = userRepository.findByUserNameIgnoreCase(customUser.getUsername());
         List<Donation> donations = donationRepository.findAllByUserOrderByPickUpDateAscPickUpTimeAscCreateDateAsc(user);
         List<DonationStatus> donationStatuses = donationStatusRepository.findAll();
         model.addAttribute("donationStatus", new DonationStatus());
@@ -114,7 +114,7 @@ public class UserProfileController {
 
     @RequestMapping(path = "/donationDetails/{id}",method = RequestMethod.GET)
     public String donationDetail(Model model, @AuthenticationPrincipal UserDetails customUser, @PathVariable Long id){
-        User user = userRepository.findByUserName(customUser.getUsername());
+        User user = userRepository.findByUserNameIgnoreCase(customUser.getUsername());
         Donation donation = donationRepository.getOne(id);
         if(donation.getUser().getId() != user.getId()){
             return "redirect:/403";

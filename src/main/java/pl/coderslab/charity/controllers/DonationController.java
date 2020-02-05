@@ -1,7 +1,6 @@
 package pl.coderslab.charity.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -11,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import pl.coderslab.charity.entities.*;
 import pl.coderslab.charity.repositories.*;
-import pl.coderslab.charity.services.UserService;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -49,7 +47,7 @@ public class DonationController {
     @RequestMapping(path = "/donation", method = RequestMethod.POST)
     public String saveDonation(@ModelAttribute("donation") Donation donation, @AuthenticationPrincipal UserDetails customUser){
         if(customUser != null){
-            User user = userRepository.findByUserName(customUser.getUsername());
+            User user = userRepository.findByUserNameIgnoreCase(customUser.getUsername());
             donation.setUser(user);
         }
         donation.setCreateDate(LocalDate.now());
